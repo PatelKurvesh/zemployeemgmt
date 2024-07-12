@@ -1,0 +1,59 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog title="Create Employee" titleAlignment="Center">
+        <form:SimpleForm>
+            <Label text="Employee ID" />
+            <Input
+                type="Text"
+                required="true"
+                id="INP_ID"
+            />
+
+            <Label text="Employee Name" />
+            <Input type="Text" id="INP_NAME" />
+
+            <Label text="Employee Salary" />
+            <Input type="Text" id="INP_SALARY"/>
+
+            <Label text="Employee CTC" />
+            <Input type="Text" id="INP_CTC"/>
+
+            <Label text="Employee Experience" />
+            <Input type="Text" id="INP_EXP"/>
+
+            <Label text="Employee Module" />
+            <ComboBox items="{Employee>/SelectedModule}" id="INP_MODULE">
+                <core:Item
+                    key="{Employee>MODULE_ID}"
+                    text="{Employee>MODULE_NAME}"
+                    
+                />
+            </ComboBox>
+            <!-- <ComboBox>
+                <core:Item
+                    key="{Employee>/SelectedModule/MODULE_ID}"
+                    text="{Employee>/SelectedModule/MODULE_NAME}"
+                />
+            </ComboBox> -->
+        </form:SimpleForm>
+
+        <buttons>
+            <Button
+                text="Save"
+                icon="sap-icon://save"
+                press="onAddNewEmp"
+                type="Emphasized"
+            />
+            <Button
+                id="idCancelPop"
+                icon="sap-icon://decline"
+                text="Cancel"
+                type="Negative"
+                press="onCancelDialog"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

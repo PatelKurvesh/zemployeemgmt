@@ -3,7 +3,7 @@ namespace zemployeemgmt.db.schema;
 using {managed} from '@sap/cds/common';
 
 entity EMPLOYEE : managed {
-    key EMP_ID         : String;
+    key EMP_ID         : Int32;
         EMP_NAME       : String;
         EMP_SALARY     : String;
         EMP_CTC        : String;

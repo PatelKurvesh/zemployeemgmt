@@ -1,0 +1,19 @@
+GET http://localhost:4004/v2/odata/EMPLOYEE
+
+###
+
+POST http://localhost:4004/v2/odata/EMPLOYEE
+Content-Type: application/json
+
+{
+    "EMP_ID":1,
+    "EMP_NAME":"uddhav Patel",
+    "EMP_SALARY":"90000",
+    "EMP_CTC":"",
+    "EMP_EXPERIENCE":"",
+    "EMP_MODULE_MODULE_ID":""
+}
+
+###
+
+DELETE http://localhost:4004/v2/odata/EMPLOYEE(EMP_ID=2)

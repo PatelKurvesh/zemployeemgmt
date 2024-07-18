@@ -20,12 +20,13 @@
   },
   "scripts": {
     "start": "cds-serve",
+    "go":"cds watch --profile hybrid",
     "deploy":"cf deploy mta_archives/zemployeemgmt_1.0.0.mtar"
   },
   "cds": {
     "requires": {
       "auth": "dummy",
-      "db": "hana"
+      "db":"sqlite"
     }
   }
 }

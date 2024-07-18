@@ -1,0 +1,32 @@
+GET http://localhost:4004/v2/odata/EMPLOYEE
+
+###
+
+POST http://localhost:4004/v2/odata/EMPLOYEE
+Content-Type: application/json
+
+{
+    "EMP_ID":2,
+    "EMP_NAME":"Bhavesh Patel",
+    "EMP_SALARY":"90000",
+    "EMP_CTC":"",
+    "EMP_EXPERIENCE":"",
+    "EMP_MODULE_MODULE_ID":""
+}
+
+###
+
+DELETE http://localhost:4004/v2/odata/EMPLOYEE(EMP_ID=44)
+
+###
+GET http://localhost:4004/v2/odata/FILE
+
+
+###
+DELETE  http://localhost:4004/v2/odata/FILE(FILE_ID=817b60f1-fdc9-4ef1-912b-9a31397bc306)
+
+###
+POST http://localhost:4004/v2/odata/FILE
+Content-Type: image/png
+
+<./Man.png

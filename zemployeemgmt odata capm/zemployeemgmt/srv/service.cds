@@ -6,6 +6,8 @@ service zemployeemgmt @(path:'/odata'){
     entity EMPLOYEE as projection on db.EMPLOYEE;
     entity MODULE  as projection on db.MODULE;
     entity FILE as projection on db.FILE;
+
+    // function getFiles () returns {};
 }
 
 

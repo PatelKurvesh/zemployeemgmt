@@ -10,7 +10,9 @@
     "@sap/cds-hana": "^2",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
     "@sap/xssec": "^3",
-    "express": "^4"
+    "base64-js": "^1.5.1",
+    "express": "^4",
+    "filereader": "^0.10.3"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
@@ -20,13 +22,13 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "go":"cds watch --profile hybrid",
-    "deploy":"cf deploy mta_archives/zemployeemgmt_1.0.0.mtar"
+    "go": "cds watch --profile hybrid",
+    "deploy": "cf deploy mta_archives/zemployeemgmt_1.0.0.mtar"
   },
   "cds": {
     "requires": {
       "auth": "dummy",
-      "db":"sqlite"
+      "db": "hana"
     }
   }
 }

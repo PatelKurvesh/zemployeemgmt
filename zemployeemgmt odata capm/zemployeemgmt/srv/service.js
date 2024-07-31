@@ -1,5 +1,4 @@
 const cds = require("@sap/cds");
-const { Readable, PassThrough } = require("stream");
 
 module.exports = (srv => {
     let { EMPLOYEE, MODULE, FILE } = srv.entities;
@@ -28,74 +27,15 @@ module.exports = (srv => {
     });
 
     srv.before("CREATE", FILE, async (req) => {
-        let { FILE_ID } = req.data;
-        req.data.URL = `/odata/FILE(${FILE_ID})/CONTENT`;
-    });
-
-    srv.on('UPDATE', FILE, async (req, next) => {
-        let db = await cds.connect.to('db');
-        try {
-            const url = req._.req.path
-            if (url.includes('CONTENT')) {
-                const sFileId = req.data.FILE_ID;
-                var fileObj = await db.read(FILE,sFileId);
-                if (!fileObj) {
-                    req.reject(404, 'File not found.')
-                    return
+        if (req.data.CONTENT) {
+            try {
+                if (typeof req.data.CONTENT === 'string') {
+                    req.data.CONTENT = Buffer.from(req.data.CONTENT, 'base64');
                 }
-                const stream = new PassThrough()
-                const aFileData = []
-                stream.on('data', chunk => {
-                    aFileData.push(chunk)
-                })
-                stream.on('end', () => {
-                    fileObj.CONTENT = Buffer.concat(aFileData).toString('base64');
-                    console.log(body.toString());
-                    // fileObj.update(body);
-                })
-                req.data.CONTENT.pipe(stream);
-            } else return next()  
-        } catch (error) {
-            console.log(error);
+            } catch (error) {}
         }
-       
-    })
-
-    srv.on("READ", FILE, async (req, next) => {
-        if (!req.data.FILE_ID) {
-            return next();
-        }
-
-        const url = req._.req.path;
-        if (url.includes("CONTENT")) {
-            const sFileId = req.data.FILE_ID;
-            var tx = cds.transaction(req);
-            var fileObj = await tx.run(SELECT.one.from(req.target, ["CONTENT", "MEDIA_TYPE"]).where("FILE_ID =", sFileId));
-
-            if (fileObj.length <= 0) {
-                req.reject(404, "File not found.");
-                return;
-            }
-            var decodedMedia = "";
-            decodedMedia = new Buffer.from(
-                fileObj.CONTENT.toString().split(";base64,").pop(),
-                "base64"
-            );
-
-            return _formatResult(decodedMedia, fileObj.MEDIA_TYPE);
-        }
-        else return next();
+        req.data.URL = `/odata/FILE(${req.data.FILE_ID})/CONTENT`;
     });
-
-
-    function _formatResult(decodedMedia) {
-        const readable = new Readable()
-        const result = new Array()
-        readable.push(decodedMedia)
-        readable.push(null)
-        result.push({ value: readable })
-        return result
-    }
 
 
 });
